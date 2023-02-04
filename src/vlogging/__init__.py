@@ -10,25 +10,30 @@ __version__ = "0.0.1"
 
 __all__ = ["VFormatter"]
 
+SIMPLE_FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
+BASIC_FORMAT = "%(asctime)s %(levelname)-8s %(filename)s:%(lineno)d: %(message)s"
+
+DATE_FMT_MICROSECONDS = "%Y-%m-%d %H:%M:%S.%f"
+
 DEFAUT_CONFIG = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
         "simple": {
             "class": "vlogging.VFormatter",
-            "format": "%(asctime)s %(levelname)-8s %(message)s",
+            "format": SIMPLE_FORMAT,
         },
         "basic": {
             "class": "vlogging.VFormatter",
-            "format": "%(asctime)s %(levelname)-8s %(message)s",
-            "datefmt": "%Y-%m-%d %H:%M:%S.%f"
+            "format": BASIC_FORMAT,
+            "datefmt": DATE_FMT_MICROSECONDS
         }
     },
     "handlers": {
         "consoleHandler": {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
-            "formatter": "simple",
+            "formatter": "basic",
             "stream": "ext://sys.stdout"
         },
     },
