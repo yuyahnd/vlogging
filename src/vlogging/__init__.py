@@ -1,14 +1,23 @@
+import logging
 from logging.config import dictConfig as _dictConfig
-from logging import (
-    getLogger as _getLogger,
-    Logger
-)
 
-from vlogging.formatters import VFormatter
+from vlogging.logger import Logger
+from vlogging.formatters import Formatter
 
 __version__ = "0.0.1"
 
-__all__ = ["VFormatter"]
+__all__ = ["Formatter", "Logger"]
+
+from logging import (
+    CRITICAL,
+    FATAL,
+    ERROR,
+    WARNING,
+    WARN,
+    INFO,
+    DEBUG,
+    NOTSET,
+)
 
 SIMPLE_FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
 BASIC_FORMAT = "%(asctime)s %(levelname)-8s %(filename)s:%(lineno)d: %(message)s"
@@ -20,11 +29,11 @@ DEFAUT_CONFIG = {
     "disable_existing_loggers": False,
     "formatters": {
         "simple": {
-            "class": "vlogging.VFormatter",
+            "class": "vlogging.Formatter",
             "format": SIMPLE_FORMAT,
         },
         "basic": {
-            "class": "vlogging.VFormatter",
+            "class": "vlogging.Formatter",
             "format": BASIC_FORMAT,
             "datefmt": DATE_FMT_MICROSECONDS
         }
@@ -70,6 +79,7 @@ def getLogger(name: str=None, config: dict=None) -> Logger:
     """
     if config is not None:
         _dictConfig(config)
-    return _getLogger(name)
+    return logging.getLogger(name)
 
+logging.setLoggerClass(Logger)
 logger = getLogger("vlogger", DEFAUT_CONFIG)
