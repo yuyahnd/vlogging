@@ -1,8 +1,7 @@
-from logging import Formatter
-from logging import LogRecord
+import logging
 from datetime import datetime
 
-class VFormatter(Formatter):
+class Formatter(logging.Formatter):
     """
     Formatter instances are used to convert a LogRecord to text.
 
@@ -33,13 +32,13 @@ class VFormatter(Formatter):
                         the record is emitted
     """
 
-    def formatTime(self, record: LogRecord, datefmt: str=None) -> str:
+    def formatTime(self, record: logging.LogRecord, datefmt: str=None) -> str:
         """
         Return the creation time of the specified LogRecord as formatted text.
 
         Parameters
         ----------
-        record : LogRecord
+        record : logging.LogRecord
             log record
         datefmt : str, optional
             datetime format, by default None
@@ -51,7 +50,7 @@ class VFormatter(Formatter):
         """
         dt = datetime.fromtimestamp(record.created)
         if datefmt is None:
-            time = dt.isoformat(sep=' ', timespec='milliseconds')
+            time = dt.isoformat(sep=" ", timespec="milliseconds")
         else:
             time = dt.strftime(datefmt)
         return time
