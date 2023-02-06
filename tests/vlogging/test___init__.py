@@ -5,7 +5,11 @@
 ##------------------------------------------------------------------------------
 
 import pytest
-from vlogging import logger
+from vlogging import (
+    getLogger,
+    DEFAUT_CONFIG
+)
+logger = getLogger("vlogger", DEFAUT_CONFIG)
 
 def test_vlogging():
     print(type(logger))

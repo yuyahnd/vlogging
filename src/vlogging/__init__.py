@@ -1,5 +1,5 @@
 import logging
-from logging.config import dictConfig as _dictConfig
+import logging.config
 
 from vlogging.logger import Logger
 from vlogging.formatters import Formatter
@@ -59,6 +59,17 @@ DEFAUT_CONFIG = {
     }
 }
 
+def dictConfig(config: dict) -> None:
+    """Configure logging using a dictionary.
+
+    Parameters
+    ----------
+    config : dict
+        config
+    """
+    logging.config.dictConfig(config)
+
+
 def getLogger(name: str=None, config: dict=None) -> Logger:
     """
     Return a logger with the specified name, creating it if necessary.
@@ -78,8 +89,8 @@ def getLogger(name: str=None, config: dict=None) -> Logger:
         logger
     """
     if config is not None:
-        _dictConfig(config)
+        dictConfig(config)
     return logging.getLogger(name)
 
+
 logging.setLoggerClass(Logger)
-logger = getLogger("vlogger", DEFAUT_CONFIG)
