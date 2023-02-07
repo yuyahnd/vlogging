@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vlogging"
-version = "0.0.1.a"
+version = "0.0.1"
 authors = [
     { name="Yuya Honda", email="yuyahnd.info@gmail.com" }
 ]
