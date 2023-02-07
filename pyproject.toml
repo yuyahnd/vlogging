@@ -4,17 +4,26 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vlogging"
-version = "0.0.1"
+version = "0.0.1.a"
+authors = [
+    { name="Yuya Honda", email="yuyahnd.info@gmail.com" }
+]
 description = "Easy to use logger."
 readme = "README.md"
-requires-python = ">=3.11"
-license = {file = "LICENSE"}
+requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
 ]
 
 dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/yuyahnd/vlogging"
+"Bug Tracker" = "https://github.com/yuyahnd/vlogging/issues"
 
 [project.optional-dependencies]
 dev = [

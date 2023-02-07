@@ -2,6 +2,9 @@
 Easy to use logger.
 
 ## Installation
+```
+$ pip install vlogging
+```
 
 Install from github:
 ```
