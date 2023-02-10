@@ -5,32 +5,31 @@
 ##------------------------------------------------------------------------------
 
 import pytest
-from vlogging import (
-    getLogger,
-    DEFAUT_CONFIG
-)
-logger = getLogger("vlogger", DEFAUT_CONFIG)
+import vlogging
 
-def test_vlogging():
+@pytest.mark.parametrize("name, expected", [
+    ("vlogging", "vlogging"),
+    (__name__, __name__),
+    (None, "root")
+])
+def test_vlogging(name, expected):
+    logger = vlogging.getLogger(name)
     print(type(logger))
-    assert True
-
-def test_critical():
     logger.critical('TEST critical')
-    assert True
-
-def test_error():
     logger.error('TEST error')
-    assert True
-
-def test_warning():
     logger.warning("TEST warning")
-    assert True
-
-def test_info():
     logger.info('TEST info')
-    assert True
-
-def test_debug():
     logger.debug('TEST debug')
-    assert True
+    assert logger.name == expected
+
+@pytest.mark.parametrize("config", [
+    (None),
+    ({}),
+])
+def test_config_configure(config):
+    vlogging._config.configure(config)
+    cfg = vlogging._config.config
+    assert cfg.get("formatters") is not None
+    assert cfg.get("filters") is not None
+    assert cfg.get("handlers") is not None
+    assert cfg.get("loggers") is not None
