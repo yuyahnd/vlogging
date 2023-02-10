@@ -1,10 +1,12 @@
 from logging import LogRecord
-from vlogging import Formatter
+
+
+from vlogging import formatters
 from vlogging import INFO
 
 from datetime import datetime
 
-formatter = Formatter()
+formatter = formatters.Formatter()
 
 def test_formatTime_isoformat():
     record = LogRecord("vlogger", INFO, "path", 1, "Message", "args", exc_info=None)

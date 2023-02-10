@@ -1,6 +1,21 @@
 import logging
 from datetime import datetime
 
+SIMPLE_FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
+BASIC_FORMAT = "%(asctime)s %(levelname)-8s %(filename)s:%(lineno)d: %(message)s"
+DATE_FMT_MICROSECONDS = "%Y-%m-%d %H:%M:%S.%f"
+
+def getFormatConfig(format: str,
+                datefmt: str = None,
+                className: str = "vlogging.formatters.Formatter") -> dict:
+    config = {
+        "class": className,
+        "format": format,
+    }
+    if datefmt is not None:
+        config["datefmt"] = datefmt
+    return config
+
 class Formatter(logging.Formatter):
     """
     Formatter instances are used to convert a LogRecord to text.
@@ -31,6 +46,22 @@ class Formatter(logging.Formatter):
     %(message)s         The result of record.getMessage(), computed just as
                         the record is emitted
     """
+
+
+    def getFormatDict(self, format: str, datefmt: str=None) -> dict:
+        format = {
+            "class": "vlogging.Formatter",
+            "format": format,
+        }
+        if datefmt is not None:
+            format["datefmt"] = datefmt
+        return format
+
+    def getDefautFormatDict(self) -> dict:
+        return self.getFormatDict(Formatter.SIMPLE_FORMAT)
+
+    def getConsoleFormatDict(self) -> dict:
+        return self.getFormatDict(Formatter.BASIC_FORMAT, Formatter.DATE_FMT_MICROSECONDS)
 
     def formatTime(self, record: logging.LogRecord, datefmt: str=None) -> str:
         """
