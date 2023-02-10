@@ -33,10 +33,10 @@ class Config(object):
         },
         "filters": {},
         "handlers": {
-            "defaut_handler": handlers.getConsleHandlerConfig("DEBUG", "defaut_format")
+            "defaut_handler": handlers.getConsleHandlerConfig("DEBUG", "defaut_format"),
         },
         "loggers": {
-            "vlogging": loggers.getLoggerConfig("DEBUG", ["defaut_handler"])
+            "vlogging": loggers.getLoggerConfig("DEBUG", ["defaut_handler"]),
         },
     }
 
