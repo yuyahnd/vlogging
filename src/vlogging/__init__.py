@@ -1,7 +1,7 @@
 import logging
 import logging.config
 
-from vlogging.logger import Logger
+from vlogging.loggers import Logger
 from vlogging.formatters import Formatter
 
 __version__ = "0.0.1.2"
