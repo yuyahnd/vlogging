@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "setuptools_scm"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -37,6 +37,7 @@ dev = [
 [project.urls]
 "Homepage" = "https://github.com/yuyahnd/vlogging"
 "Bug Tracker" = "https://github.com/yuyahnd/vlogging/issues"
+"Repository" = "https://github.com/yuyahnd/vlogging.git"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
