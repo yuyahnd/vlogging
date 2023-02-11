@@ -5,16 +5,54 @@ SIMPLE_FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
 BASIC_FORMAT = "%(asctime)s %(levelname)-8s %(filename)s:%(lineno)d: %(message)s"
 DATE_FMT_MICROSECONDS = "%Y-%m-%d %H:%M:%S.%f"
 
-def getFormatConfig(format: str,
-                datefmt: str = None,
-                className: str = "vlogging.formatters.Formatter") -> dict:
+def getFormatConfig(format: str, datefmt: str = None, style: str = "%",
+            className: str = "vlogging.formatters.Formatter",  **kwargs) -> dict:
+    """Create and return a format config.
+
+    Parameters
+    ----------
+    format : str
+        The format string to use.
+    datefmt : str, optional
+        The date format string to use, by default None
+    style : str, optional
+        The style parameter to use, by default "%"
+    className : str, optional
+        This is the fully qualified name of the formatter class, by default "vlogging.formatters.Formatter"
+
+    Returns
+    -------
+    dict
+        format config.
+    """
     config = {
         "class": className,
         "format": format,
+        "style": style,
     }
     if datefmt is not None:
         config["datefmt"] = datefmt
+    config.update(kwargs)
     return config
+
+
+def getMicrosecondsFormatConfig(format: str = BASIC_FORMAT, style: str = "%") -> dict:
+    """Create and return a microseconds date format config.
+
+    Parameters
+    ----------
+    format : str, optional
+        The format string to use, by default BASIC_FORMAT
+    style : str, optional
+        The style parameter to use, by default "%"
+
+    Returns
+    -------
+    dict
+        microseconds date format config.
+    """
+    return getFormatConfig(format, DATE_FMT_MICROSECONDS, style)
+
 
 class Formatter(logging.Formatter):
     """
@@ -47,21 +85,6 @@ class Formatter(logging.Formatter):
                         the record is emitted
     """
 
-
-    def getFormatDict(self, format: str, datefmt: str=None) -> dict:
-        format = {
-            "class": "vlogging.Formatter",
-            "format": format,
-        }
-        if datefmt is not None:
-            format["datefmt"] = datefmt
-        return format
-
-    def getDefautFormatDict(self) -> dict:
-        return self.getFormatDict(Formatter.SIMPLE_FORMAT)
-
-    def getConsoleFormatDict(self) -> dict:
-        return self.getFormatDict(Formatter.BASIC_FORMAT, Formatter.DATE_FMT_MICROSECONDS)
 
     def formatTime(self, record: logging.LogRecord, datefmt: str=None) -> str:
         """
