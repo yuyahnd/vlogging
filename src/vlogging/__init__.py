@@ -151,6 +151,20 @@ class Config(object):
         return result
 
     def configureDefautConfig(self, key: str, defaut: str) -> dict:
+        """Returns the specified default settings.
+
+        Parameters
+        ----------
+        key : str
+            config key
+        defaut : str
+            defaut key
+
+        Returns
+        -------
+        dict
+            defaut config.
+        """
         result = {}
         if defaut is not None:
             result[defaut] = self.DEFAUT_CONFIG[key][defaut].copy()
