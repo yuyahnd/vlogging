@@ -33,7 +33,7 @@ def getHandlerConfig(className: str, level: str = None, formatter: str = None,
 
 
 def getConsleHandlerConfig(level: str = None, formatter: str = None,
-            stream: str = "ext://sys.stdout") -> dict:
+            stream: str = "ext://sys.stderr") -> dict:
     """Create and return a consle handler config.
 
     Parameters
@@ -43,7 +43,7 @@ def getConsleHandlerConfig(level: str = None, formatter: str = None,
     formatter : str, optional
         The id of the formatter for this handler, by default None
     stream : str, optional
-        The stream that the handler should use, by default "ext://sys.stdout"
+        The stream that the handler should use, by default "ext://sys.stderr"
 
     Returns
     -------
