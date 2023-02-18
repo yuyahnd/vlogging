@@ -54,7 +54,45 @@ def getConsleHandlerConfig(level: str = None, formatter: str = None,
         f"{ConsoleHandler.__module__}.{ConsoleHandler.__name__}",
         level,
         formatter,
-        stream = stream)
+        stream = stream
+    )
+
+
+def getFileHandlerConfig(filename: str, mode: str = "a", encoding: str = None,
+            level: str = None, formatter: str = None, **kwargs) -> dict:
+    """Create and return a file handler config.
+
+    Parameters
+    ----------
+    filename : str
+        log file name
+    mode : str, optional
+        log file open mode, by default "a"
+    encoding : str, optional
+        log file encoding, by default None
+    level : str, optional
+        The level of the handler, by default None
+    formatter : str, optional
+        The id of the formatter for this handler, by default None
+
+    Returns
+    -------
+    dict
+        file handler config.
+    """
+    config = {
+        "filename": filename,
+        "mode" : mode,
+    }
+    if encoding is not None:
+        config["encoding"] = encoding
+    return getHandlerConfig(
+        f"{FileHandler.__module__}.{FileHandler.__name__}",
+        level,
+        formatter,
+        filters=None,
+        **config
+    )
 
 
 class ConsoleHandler(logging.StreamHandler):
