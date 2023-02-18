@@ -59,3 +59,22 @@ def getConsleHandlerConfig(level: str = None, formatter: str = None,
 
 class ConsoleHandler(logging.StreamHandler):
     pass
+
+
+class FileHandler(logging.FileHandler):
+    def __init__(self, filename: str, mode: str = "a", encoding: str = None,
+                    delay: bool = False):
+        """Create a file handler.
+
+        Parameters
+        ----------
+        filename : str
+            log file name
+        mode : str, optional
+            log file open mode, by default "a"
+        encoding : str, optional
+            log file encoding, by default None
+        delay : bool, optional
+            log file open delay, by default False
+        """
+        super().__init__(filename, mode=mode, encoding=encoding, delay=delay)

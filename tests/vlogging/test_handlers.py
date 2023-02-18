@@ -29,3 +29,12 @@ def test_getConsleHandlerConfig(level, formatter, stream):
     assert config.get("level", None) == level
     assert config.get("formatter", None) == formatter
     assert config.get("stream", None) == stream
+
+
+@pytest.mark.parametrize("mode", ["a", "a+"])
+@pytest.mark.parametrize("encoding", [None, "utf-8"])
+@pytest.mark.parametrize("delay", [True, False])
+def test_FileHandler(log_file, mode, encoding, delay):
+    print(log_file)
+    handler = handlers.FileHandler(log_file, mode, encoding, delay)
+    assert handler.baseFilename == log_file
