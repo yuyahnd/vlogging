@@ -1,4 +1,4 @@
-# vlogging
+# νlogging
 Easy to use logger.
 
 ## Installation
