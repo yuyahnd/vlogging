@@ -191,6 +191,70 @@ class Config(object):
             self.configure()
 
 
+def basicConfig(**kwargs) -> None:
+    """
+    Do basic configuration for the logging system.
+
+    It is a convenience method intended for use by simple scripts
+    to do one-shot configuration of the logging package.
+
+    The default behaviour is to create a StreamHandler which writes to
+    sys.stderr, set a formatter using the BASIC_FORMAT format string, and
+    add the handler to the root logger.
+
+    A number of optional keyword arguments may be specified, which can alter
+    the default behaviour.
+
+    format    Use the specified format string for the handler.
+    datefmt   Use the specified date/time format.
+    style     If a format string is specified, use this to specify the
+              type of format string (possible values '%', '{', '$', for
+              %-formatting, :meth:`str.format` and :class:`string.Template`
+              - defaults to '%').
+    filename  Specifies that a FileHandler be created, using the specified
+              filename, rather than a StreamHandler.
+    filemode  Specifies the mode to open the file, if filename is specified
+              (if filemode is unspecified, it defaults to 'a').
+    encoding  If specified together with a filename, this encoding is passed to
+              the created FileHandler, causing it to be used when the file is
+              opened.
+    stream    Use the specified stream to initialize the StreamHandler. Note
+              that this argument is incompatible with 'filename' - if both
+              are present, 'stream' is ignored.
+    level     Set the logger level to the specified level.
+    """
+    format = kwargs.pop("format", formatters.SIMPLE_FORMAT)
+    datefmt = kwargs.pop("datefmt", None)
+    style = kwargs.pop("style", "%")
+    formatConfig = formatters.getFormatConfig(format, datefmt, style)
+
+    level = kwargs.pop("level", None)
+
+    filename = kwargs.pop("filename", None)
+    if filename is None:
+        stream = kwargs.pop("stream", "ext://sys.stderr")
+        handlerConfig = handlers.getConsleHandlerConfig(level, DEFAUT_FORMAT, stream)
+    else:
+        filemode = kwargs.pop("filemode", "a")
+        encoding = kwargs.pop("encoding", None)
+        handlerConfig = handlers.getFileHandlerConfig(filename, filemode, encoding,
+                                                level, DEFAUT_FORMAT)
+    loggerConfig = loggers.getLoggerConfig(level, [DEFAUT_HANDLER])
+
+    config = {
+        "formatters": {
+            DEFAUT_FORMAT: formatConfig,
+        },
+        "handlers": {
+            DEFAUT_HANDLER: handlerConfig,
+        },
+        "loggers": {
+            DEFAUT_LOGGER: loggerConfig,
+        },
+    }
+    _config.configure(config)
+
+
 def getLogger(name: str=None, config: dict=None) -> Logger:
     """
     Return a logger with the specified name, creating it if necessary.
