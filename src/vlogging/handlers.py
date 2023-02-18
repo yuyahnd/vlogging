@@ -58,7 +58,18 @@ def getConsleHandlerConfig(level: str = None, formatter: str = None,
 
 
 class ConsoleHandler(logging.StreamHandler):
-    pass
+    def __init__(self, stream=None):
+        """
+        A handler class which writes logging records, appropriately formatted,
+        to a stream. Note that this class does not close the stream, as
+        sys.stdout or sys.stderr may be used.
+
+        Parameters
+        ----------
+        stream : _type_, optional
+            output stream, by default None
+        """
+        super().__init__(stream=stream)
 
 
 class FileHandler(logging.FileHandler):
