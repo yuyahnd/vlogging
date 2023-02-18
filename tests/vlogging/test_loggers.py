@@ -1,9 +1,9 @@
 import pytest
 from vlogging import loggers
-
+from vlogging import DEFAUT_HANDLER
 
 @pytest.mark.parametrize("level, handlers, propagate, filters", [
-    ("DEBUG", ["defaut_handler"], None, None),
+    ("DEBUG", [DEFAUT_HANDLER], None, None),
     ("INFO", [], True, []),
     (None, None, None, None),
 ])

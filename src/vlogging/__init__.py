@@ -24,20 +24,25 @@ __version__ = "0.0.2"
 
 __all__ = ["Logger"]
 
+DEFAUT_FORMAT  = "vlogging_format"
+DEFAUT_FILTER  = "vlogging_filter"
+DEFAUT_HANDLER = "vlogging_handler"
+DEFAUT_LOGGER  = "vlogging"
+
 class Config(object):
 
     DEFAUT_CONFIG = {
         "version": 1,
         "disable_existing_loggers": False,
         "formatters": {
-            "defaut_format": formatters.getFormatConfig(formatters.SIMPLE_FORMAT),
+            DEFAUT_FORMAT: formatters.getFormatConfig(formatters.SIMPLE_FORMAT),
         },
         "filters": {},
         "handlers": {
-            "defaut_handler": handlers.getConsleHandlerConfig("DEBUG", "defaut_format"),
+            DEFAUT_HANDLER: handlers.getConsleHandlerConfig("DEBUG", DEFAUT_FORMAT),
         },
         "loggers": {
-            "vlogging": loggers.getLoggerConfig("DEBUG", ["defaut_handler"]),
+            DEFAUT_LOGGER: loggers.getLoggerConfig("DEBUG", [DEFAUT_HANDLER]),
         },
     }
 
@@ -73,7 +78,7 @@ class Config(object):
         dict
             format config.
         """
-        return self.configureItems(config, "formatters", "defaut_format")
+        return self.configureItems(config, "formatters", DEFAUT_FORMAT)
 
     def configureFilters(self, config: dict) -> dict:
         """Configure filter settings.
@@ -103,7 +108,7 @@ class Config(object):
         dict
             handler config.
         """
-        return self.configureItems(config, "handlers", "defaut_handler")
+        return self.configureItems(config, "handlers", DEFAUT_HANDLER)
 
     def configureLoggers(self, config: dict) -> dict:
         """Configure logger settings.
@@ -118,7 +123,7 @@ class Config(object):
         dict
             logger config.
         """
-        return self.configureItems(config, "loggers", "vlogging")
+        return self.configureItems(config, "loggers", DEFAUT_LOGGER)
 
     def configureItems(self, config: dict, key: str, defaut: str) -> dict:
         """Configure logger item settings.
