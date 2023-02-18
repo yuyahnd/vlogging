@@ -1,10 +1,10 @@
 import pytest
 from vlogging import handlers
-
+from vlogging import DEFAUT_FORMAT
 
 @pytest.mark.parametrize("className, level, formatter, filters", [
-    ("vlogging.handlers.ConsoleHandler", "DEBUG", "defaut_format", []),
-    ("vlogging.handlers.ConsoleHandler", "INFO", "defaut_format", None),
+    ("vlogging.handlers.ConsoleHandler", "DEBUG", DEFAUT_FORMAT, []),
+    ("vlogging.handlers.ConsoleHandler", "INFO", DEFAUT_FORMAT, None),
     ("vlogging.handlers.ConsoleHandler", "INFO", None, None),
     ("vlogging.handlers.ConsoleHandler", None, None, None),
     (None, None, None, None),
@@ -18,9 +18,9 @@ def test_getHandlerConfig(className, level, formatter, filters):
 
 
 @pytest.mark.parametrize("level, formatter, stream", [
-    ("DEBUG", "defaut_format", "ext://sys.stdout"),
-    ("ERROR", "defaut_format", "ext://sys.stderr"),
-    ("INFO", "defaut_format", None),
+    ("DEBUG", DEFAUT_FORMAT, "ext://sys.stdout"),
+    ("ERROR", DEFAUT_FORMAT, "ext://sys.stderr"),
+    ("INFO", DEFAUT_FORMAT, None),
     ("INFO", None, None),
     (None, None, None)
 ])
