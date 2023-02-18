@@ -32,6 +32,15 @@ def test_getConsleHandlerConfig(level, formatter, stream):
     assert config.get("stream", None) == stream
 
 
+@pytest.mark.parametrize("mode", ["a", "a+"])
+@pytest.mark.parametrize("encoding", [None, "utf-8"])
+def test_getFileHandlerConfig(log_file, mode, encoding):
+    config = handlers.getFileHandlerConfig(log_file, mode, encoding)
+    assert config.get("filename") == log_file
+    assert config.get("mode") == mode
+    assert config.get("encoding", None) == encoding
+
+
 @pytest.mark.parametrize("stream", [sys.stdout, sys.stderr, None])
 def test_ConsoleHandler(stream):
     handler = handlers.ConsoleHandler(stream)
