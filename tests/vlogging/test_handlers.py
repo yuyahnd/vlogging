@@ -1,3 +1,4 @@
+import sys
 import pytest
 from vlogging import handlers
 from vlogging import DEFAUT_FORMAT
@@ -29,6 +30,15 @@ def test_getConsleHandlerConfig(level, formatter, stream):
     assert config.get("level", None) == level
     assert config.get("formatter", None) == formatter
     assert config.get("stream", None) == stream
+
+
+@pytest.mark.parametrize("stream", [sys.stdout, sys.stderr, None])
+def test_ConsoleHandler(stream):
+    handler = handlers.ConsoleHandler(stream)
+    if stream is None:
+        assert handler.stream == sys.stderr
+    else:
+        assert handler.stream == stream
 
 
 @pytest.mark.parametrize("mode", ["a", "a+"])
