@@ -28,6 +28,17 @@ def test_vlogging():
         vlogging.exception(e)
 
 
+def test_basicConfig(log_file):
+    vlogging.basicConfig(filename = log_file)
+    vlogging.critical("TEST basicConfig critical")
+    vlogging.fatal("TEST basicConfig fatal")
+    vlogging.error("TEST basicConfig error")
+    vlogging.warning("TEST basicConfig warning")
+    vlogging.info("TEST basicConfig info")
+    vlogging.debug("TEST basicConfig debug")
+    vlogging.log(vlogging.INFO, "TEST basicConfig log")
+
+
 @pytest.mark.parametrize("name, expected", [
     (DEFAUT_LOGGER, DEFAUT_LOGGER),
     (__name__, __name__),
